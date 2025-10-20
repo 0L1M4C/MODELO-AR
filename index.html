@@ -3,35 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modelo 3D - Realidad Aumentada</title>
+  <title>Modelo 3D - AR Automático</title>
 
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <style>
-    body {
+    html, body {
       margin: 0;
-      background-color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      padding: 0;
+      height: 100%;
+      background: #fff;
+      overflow: hidden;
     }
     model-viewer {
       width: 100%;
       height: 100%;
+      --ar-button-display: block;
+      --ar-button-height: 60px;
+      --ar-button-bottom: 20px;
+      --ar-button-background-color: #0d6efd;
+      --ar-button-color: white;
+      --ar-button-border-radius: 12px;
+      --ar-button-font-size: 16px;
+      --ar-button-text-transform: none;
+      --ar-button-box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
   </style>
 </head>
 <body>
   <model-viewer 
-    src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+    id="viewer"
+    src="https://cdn.jsdelivr.net/gh/0L1M4C/MODELO-AR@main/Personaje.glb"
     ar
     ar-modes="webxr scene-viewer quick-look"
     camera-controls
     auto-rotate
     shadow-intensity="1"
     exposure="1"
+    ios-src="https://cdn.jsdelivr.net/gh/0L1M4C/MODELO-AR@main/Personaje.glb"
     alt="Modelo 3D en Realidad Aumentada">
   </model-viewer>
+
+  <script>
+    const viewer = document.getElementById('viewer');
+
+    // Esperar a que cargue el modelo
+    viewer.addEventListener('load', () => {
+      console.log('✅ Modelo cargado');
+      // Intentar abrir AR automáticamente (simulado)
+      setTimeout(() => {
+        if (viewer.canActivateAR) {
+          console.log('🎯 Intentando abrir AR automáticamente...');
+          viewer.activateAR(); // requiere interacción en algunos navegadores
+        } else {
+          console.log('⚠️ AR no disponible en este dispositivo.');
+        }
+      }, 1500); // 1.5 segundos después de cargar
+    });
+  </script>
 </body>
 </html>
